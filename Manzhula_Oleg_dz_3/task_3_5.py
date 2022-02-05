@@ -39,7 +39,9 @@ def get_jokes_adv(count=1, uniq=False) -> list:
 
         list_used = list()
         for num in range(count):
-            joke = f'{choice(list(filter(lambda word: word not in list_used, nouns)))} {choice(list(filter(lambda word: word not in list_used, adverbs)))} {choice(list(filter(lambda word: word not in list_used, adjectives)))}'
+            joke = f'{choice(list(filter(lambda word: word not in list_used, nouns)))} ' \
+                   f'{choice(list(filter(lambda word: word not in list_used, adverbs)))} ' \
+                   f'{choice(list(filter(lambda word: word not in list_used, adjectives)))}'
             list_out.append(joke)
             list_used.extend(joke.split(" "))
     else:

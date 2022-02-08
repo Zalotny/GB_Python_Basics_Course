@@ -33,7 +33,7 @@ def get_jokes_adv(count=1, uniq=False) -> list:
     max_uniq_jokes = min(len(nouns), len(adverbs), len(adjectives))
     if uniq:
         if count > max_uniq_jokes:
-            print(f'Зпрошенное количество уникальных шуток ({count} шт.) превышает количество доступное для формирования на основе заданных списков слов.')
+            print(f'Запрошенное количество уникальных шуток ({count} шт.) превышает количество доступное для формирования на основе заданных списков слов.')
             print(f'Будет сформировано максимально возможное количество: {max_uniq_jokes} шт. \n')
             count = max_uniq_jokes
 
@@ -50,4 +50,4 @@ def get_jokes_adv(count=1, uniq=False) -> list:
     return list_out
 
 print(get_jokes_adv(count=2, uniq=True))
-print(get_jokes_adv(count=10, uniq=True))
+print(get_jokes_adv(count=10, uniq=False))

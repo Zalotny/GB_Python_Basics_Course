@@ -1,0 +1,54 @@
+1. Проверить, установлен ли пакет pillow в глобальном окружении. Если да — зафиксировать версию.
+c:\GeekBrains\task_4_1_virt>pip show pillow
+Name: Pillow
+Version: 9.0.0
+Summary: Python Imaging Library (Fork)
+Home-page: https://python-pillow.org
+Author: Alex Clark (PIL Fork Author)
+Author-email: aclark@python-pillow.org
+License: HPND
+Location: c:\python38\lib\site-packages
+Requires:
+Required-by:
+
+2. Установить самую свежую версию pillow, если ранее она не была установлена.
+c:\GeekBrains\task_4_1_virt>pip install -U pillow
+Requirement already satisfied: pillow in c:\python38\lib\site-packages (9.0.0)
+Collecting pillow
+  Downloading Pillow-9.0.1-cp38-cp38-win_amd64.whl (3.2 MB)
+     |████████████████████████████████| 3.2 MB 2.2 MB/s
+Installing collected packages: pillow
+  Attempting uninstall: pillow
+    Found existing installation: Pillow 9.0.0
+    Uninstalling Pillow-9.0.0:
+      Successfully uninstalled Pillow-9.0.0
+Successfully installed pillow-9.0.1
+
+3. Создать и активировать виртуальное окружение. Убедиться, что в нем нет пакета pillow.
+c:\GeekBrains\task_4_1_virt>python -m venv my_virt
+
+c:\GeekBrains\task_4_1_virt>"my_virt/scripts/activate.bat"
+
+(my_virt) c:\GeekBrains\task_4_1_virt>
+
+(my_virt) c:\GeekBrains\task_4_1_virt>pip freeze
+
+(my_virt) c:\GeekBrains\task_4_1_virt>
+
+4. Установить в виртуальное окружение pillow версии 7.1.1 (или другой, отличной от самой свежей).
+(my_virt) c:\GeekBrains\task_4_1_virt>pip install pillow==7.1.1
+Collecting pillow==7.1.1
+  Downloading Pillow-7.1.1-cp38-cp38-win_amd64.whl (2.0 MB)
+     |████████████████████████████████| 2.0 MB 652 kB/s
+Installing collected packages: pillow
+Successfully installed pillow-7.1.1
+
+(my_virt) c:\GeekBrains\task_4_1_virt>pip freeze
+Pillow==7.1.1
+
+5. Деактивировать виртуальное окружение.
+(my_virt) c:\GeekBrains\task_4_1_virt>deactivate
+c:\GeekBrains\task_4_1_virt>
+
+
+

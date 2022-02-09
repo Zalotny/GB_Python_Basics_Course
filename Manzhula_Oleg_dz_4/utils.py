@@ -2,11 +2,20 @@ import requests
 import datetime
 
 
+def parse_tag(tag: str, cont: str, cur_start_pos: int) -> float:
+    value_pos_start = cont.find(f'<{tag}>', cur_start_pos) + len(tag)+2
+    value_pos_end = cont.find(f'</{tag}>', cur_start_pos)
+    value_str = cont[value_pos_start:value_pos_end]
+    value = float(value_str.replace(",", "."))
+
+    return value
+
+
 def currency_rates_adv(code: str) -> list:
     """
     Возвращает курс валюты `code` по отношению к рублю и дату которая передаётся в ответе сервера
     Варианты ответа:
-    [None, None] - в качестве `code` передана не строка или не удалось получить данные от сервера
+    [None, None] - не удалось получить данные от сервера
     [None, `Дата`] - не удалось найти валюту по переданному code, `Дата` - дата в ответе от сервера
     [`Курс`, `Дата`] - успешно получен курс `Курс` на дату `Дата`
     """
@@ -33,19 +42,9 @@ def currency_rates_adv(code: str) -> list:
     if cur_start_pos == -1:
         return result_list  # валюты с таким `code` нет в ответе сервера
 
-    # Парсим курс валюты
-    value_pos_start = cont.find('<Value>', cur_start_pos) + 7
-    value_pos_end = cont.find('</Value>', cur_start_pos)
-    value = cont[value_pos_start:value_pos_end]
-
-    # Парсим кратность валюты
-    nominal_pos_start = cont.find('<Nominal>', cur_start_pos) + 9
-    nominal_pos_end = cont.find('</Nominal>', cur_start_pos)
-    nominal = cont[nominal_pos_start:nominal_pos_end]
-
-    # Рассчитываем курс валюты для единицы, преобразовав строковые значения курса и кратности в числовые
-    # (курс может быть дробным, а кратность - всегда целая)
-    result_value = float(value.replace(",", ".")) / int(nominal)
+    value = parse_tag('Value', cont, cur_start_pos)  # Парсим курс валюты
+    nominal = parse_tag('Nominal', cont, cur_start_pos)  # Парсим кратность валюты
+    result_value = value / nominal  # Рассчитываем курс валюты для единицы
     result_list[0] = result_value
 
     return result_list
